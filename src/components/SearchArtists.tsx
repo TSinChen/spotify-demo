@@ -17,7 +17,11 @@ const SearchArtists = ({ token }: Props) => {
   const { data: artistList } = useQuery(
     ["artists", token, timeRange],
     () => api.getUserTopArtists(token, timeRange),
-    { enabled: Boolean(token), staleTime: STALE_TIME }
+    {
+      enabled: Boolean(token),
+      staleTime: STALE_TIME,
+      onError: () => window.location.replace("/"),
+    }
   );
 
   return (

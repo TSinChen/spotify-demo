@@ -17,7 +17,11 @@ const SearchTracks = ({ token }: Props) => {
   const { data: trackList } = useQuery(
     ["tracks", token, timeRange],
     () => api.getUserTopTracks(token, timeRange),
-    { enabled: Boolean(token), staleTime: STALE_TIME }
+    {
+      enabled: Boolean(token),
+      staleTime: STALE_TIME,
+      onError: () => window.location.replace("/"),
+    }
   );
 
   return (
