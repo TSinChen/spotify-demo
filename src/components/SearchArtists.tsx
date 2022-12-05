@@ -9,8 +9,6 @@ type Props = {
   token: string;
 };
 
-const STALE_TIME = 1000 * 60 * 10;
-
 const SearchArtists = ({ token }: Props) => {
   const [timeRange, setTimeRange] = useState(TimeRange.short);
 
@@ -19,8 +17,6 @@ const SearchArtists = ({ token }: Props) => {
     () => api.getUserTopArtists(token, timeRange),
     {
       enabled: Boolean(token),
-      staleTime: STALE_TIME,
-      onError: () => window.location.replace("/"),
     }
   );
 

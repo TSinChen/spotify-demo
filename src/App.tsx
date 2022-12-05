@@ -4,7 +4,20 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import SearchArtists from "./components/SearchArtists";
 import SearchTracks from "./components/SearchTracks";
 
-const queryClient = new QueryClient();
+const STALE_TIME = 1000 * 60 * 10;
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: STALE_TIME,
+      onError: (err) => {
+        console.log("err: ", err);
+        window.location.replace("/");
+      },
+      retry: false,
+    },
+  },
+});
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
